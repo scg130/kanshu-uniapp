@@ -215,7 +215,6 @@ module.exports = {
 					"token": token
 				},
 				success: function(result) {
-					console.log(result)
 					if (result.statusCode == 401) {
 						that.logout();
 						uni.navigateTo({

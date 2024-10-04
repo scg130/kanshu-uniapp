@@ -219,7 +219,7 @@
 							})
 							setTimeout(function() {
 								uni.navigateBack()
-							}, 1500)
+							}, 1000)
 						}
 					}
 				});
