@@ -151,6 +151,8 @@
 					this.type = 1
 				}
 				this.getMyBookList()
+			} else {
+				this.selectCurrent(0)
 			}
 		},
 		onHide() {
@@ -222,7 +224,7 @@
 					limit: this.limit,
 					classify: this.type, //1收藏 2点赞 3历史记录
 				}
-				this.$Request.getT('/novel/selectByUserId', data).then(res => {
+				this.$Request.get('/novel/selectByUserId', data).then(res => {
 					uni.stopPullDownRefresh()
 					if (res.code == 0) {
 						this.pages = res.data.pages

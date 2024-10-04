@@ -50,8 +50,12 @@ module.exports = {
 					"token": token
 				},
 				success: function(result) {
-					if (result.data.code == 401) {
+					if (result.statusCode == 401) {
 						that.logout();
+						uni.navigateTo({
+							url: "/pages/login/login"
+						})
+						return
 					}
 					succ.call(self, result.data)
 				},
@@ -211,8 +215,13 @@ module.exports = {
 					"token": token
 				},
 				success: function(result) {
-					if (result.data.code == 401) {
+					console.log(result)
+					if (result.statusCode == 401) {
 						that.logout();
+						uni.navigateTo({
+							url: "/pages/login/login"
+						})
+						return 
 					}
 					succ.call(self, result.data)
 				},
