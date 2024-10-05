@@ -175,7 +175,7 @@
 
 		},
 		onShow() {
-			this.isVips = uni.getStorageSync('isVips') ? uni.getStorageSync('isVips') : false
+			// this.isVips = uni.getStorageSync('isVips') ? uni.getStorageSync('isVips') : false
 			if (uni.getStorageSync('token')) {
 				this.getUserInfo()
 				this.token = uni.getStorageSync('token')
