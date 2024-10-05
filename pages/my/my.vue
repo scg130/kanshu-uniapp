@@ -55,7 +55,7 @@
 			</view>
 		</view>
 		<!-- vip -->
-		<view v-if="isVips == '是'" @click="goNav('/package/vip/vip')" class="vip flex align-center justify-center">
+		<view v-if="isVips" @click="goNav('/package/vip/vip')" class="vip flex align-center justify-center">
 			<view class="vip-box flex align-center justify-between">
 				<view class="vip-box-l flex align-center">
 					<view class="vip-box-l-l">
@@ -164,7 +164,7 @@
 				myLoveNum: 0, //我的书架
 				myZhui: 0, //我的阅读
 				jifen: 0, //积分
-				isVips: '否', //是否显示会员
+				isVips: true, //是否显示会员
 				isShoMoney: false, //是否显示余额
 				isVIP: false,
 				endTime: '', //会员到期时间
@@ -175,7 +175,7 @@
 
 		},
 		onShow() {
-			this.isVips = uni.getStorageSync('isVips') ? uni.getStorageSync('isVips') : '否'
+			this.isVips = uni.getStorageSync('isVips') ? uni.getStorageSync('isVips') : false
 			if (uni.getStorageSync('token')) {
 				this.getUserInfo()
 				this.token = uni.getStorageSync('token')
