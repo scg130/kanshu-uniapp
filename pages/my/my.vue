@@ -66,7 +66,7 @@
 						{{endTime?endTime+'到期':'升级VIP，省更多钱'}}
 					</view>
 				</view>
-				<view v-if="!isVIP" class="vip-box-r flex align-center justify-center">
+				<view v-if="!isVIP" @click="buyVip()" class="vip-box-r flex align-center justify-center">
 					立即开通
 				</view>
 			</view>
@@ -225,11 +225,18 @@
 				});
 			},
 			goKefuMsg() {
-					uni.showToast({
-						title: '客服QQ:904284237',
-						icon: 'none',
-						duration: 3000
-					})
+				uni.showToast({
+					title: '客服QQ:904284237',
+					icon: 'none',
+					duration: 3000
+				})
+			},
+			buyVip(){
+				uni.showToast({
+					title: '暂未开放！',
+					icon: 'none',
+					duration: 1000
+				})
 			},
 			//联系客服
 			goMsg() {
