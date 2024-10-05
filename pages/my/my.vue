@@ -218,7 +218,9 @@
 								title: '退出登录成功'
 							})
 							setTimeout(function() {
-								uni.navigateBack()
+								uni.navigateTo({
+									url: "/pages/index/index"
+								})
 							}, 1000)
 						}
 					}
