@@ -32,6 +32,9 @@
 						{{item.category?item.category:'默认'}} ·
 						{{mathNum(item.wordCount)}}{{item.wordCount>=10000?'万字':'字'}}
 					</view>
+					<text>
+						<span style="color:red">{{item.viewCounts}}</span>人在读
+					</text>
 				</view>
 			</view>
 		</view>
@@ -122,11 +125,16 @@
 							title: '最新推荐'
 						})
 						break;
-					case 2:
+					case 3:
 						uni.setNavigationBarTitle({
 							title: '完结榜单'
 						})
 						break;
+					case 4:
+						uni.setNavigationBarTitle({
+							title: '人气榜单'
+						})
+						break;	
 					default:
 						break;
 				}
@@ -141,7 +149,7 @@
 				this.$Request.getT('/app/course/selectCourse', data).then(res => {
 					uni.stopPullDownRefresh()
 					if (res.code == 0) {
-						this.pages = res.data.totalPage
+						this.pages = res.pages
 						if (this.page < this.pages) {
 							this.status = 'loadmore'
 						} else {

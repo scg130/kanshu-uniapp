@@ -144,7 +144,7 @@
 				<!-- 标题 -->
 				<view class="bookList-box-title flex align-center justify-between">
 					<view class="bookList-box-title-l">
-						完结榜单
+						最新更新
 					</view>
 					<view @click="gotoNav('/pages/moreBook/moreBook?cate=3')"
 						class="bookList-box-title-r flex align-center">
@@ -176,8 +176,52 @@
 				</view>
 			</view>
 		</view>
-
-		<empty v-if="popularList.length===0 && newList.length===0 && finishList.length===0" txt="暂无书籍" />
+		
+		<view class="bookList flex align-center justify-center" v-if="otherList.length>0">
+			<view class="bookList-box">
+				<view class="bookList-box-title flex align-center justify-between">
+					<view class="bookList-box-title-l">
+						其它书籍
+					</view>
+					<view @click="gotoNav('/pages/moreBook/moreBook?cate=4')"
+						class="bookList-box-title-r flex align-center">
+						更多
+						<u-icon name="arrow-right" color="#999999" size="14"></u-icon>
+					</view>
+				</view>
+				<!-- 书籍内容 -->
+				<view class="bookList-box-content-other flex justify-between flex-wrap">
+					<view class="bookList-box-content-item-other"
+						@click="gotoNav('/package/bookDetails/bookDetails?novel_id='+item.novelId)"
+						v-for="(item,index) in otherList" :key="index">
+						<view class="bookList-box-content-item-title-other">
+							{{item.title}}
+						</view>
+						<view style="display: flex;">
+							<view class="bookList-box-content-item-img-other">
+								<image lazy-load :src="item.titleImg" mode="aspectFill"></image>
+							</view>
+							<view class="bookList-box-content-item-intro-other">
+								{{item.intro}}
+							</view>
+						</view>
+						
+						<view class="bookList-box-content-item-tips-other flex align-center justify-between">
+							<text>
+								{{item.source?item.source:10}}分
+							</text>
+							<text>
+								{{item.viewCounts}}人在读
+							</text>
+						</view>
+						
+					</view>
+					<view class="bookList-box-content-item-other" style="height: 0;"></view>
+				</view>
+			</view>
+		</view>
+		
+		<empty v-if="popularList.length===0 && newList.length===0 && finishList.length===0 && otherList.length == 0" txt="暂无书籍" />
 
 
 
@@ -197,6 +241,7 @@
 				popularList: [], //热门书籍
 				newList: [], //最新书籍
 				finishList: [], //完结书籍
+				otherList: [],
 				page: 1, //当前页数
 				invitationCode: '',
 				tuiguang: '',
@@ -240,6 +285,7 @@
 			this.getPopularList(1, 6)
 			this.getPopularList(2, 3)
 			this.getPopularList(3, 3)
+			this.getPopularList(4,10)
 		},
 		onShow() {
 			this.invitationCode = uni.getStorageSync('invitationCode') ? uni.getStorageSync('invitationCode') : '';
@@ -294,8 +340,10 @@
 							this.popularList = res.data
 						} else if (cate == 2) { //最新书籍
 							this.newList = res.data
-						} else { //完结书籍
+						} else if (cate == 3) { //完结书籍
 							this.finishList = res.data
+						} else {
+							this.otherList = res.data
 						}
 					}
 				})
@@ -553,6 +601,67 @@
 					font-size: 26rpx;
 				}
 
+				text:nth-of-type(2) {
+					color: #999999;
+					font-size: 22rpx;
+				}
+			}
+		}
+		
+		
+		
+		.bookList-box-content-other {
+			width: 100%;
+			padding: 0 20rpx;
+			margin-top: 20rpx;
+			
+		
+			.bookList-box-content-item-other {
+				width: 100%;
+				margin-bottom: 30rpx;
+				// border: 1px solid darkgray;
+				// border-radius: 15rpx;
+			}
+			
+			.bookList-box-content-item-img-other {
+				width: 20%;
+				height: 165rpx;
+				border-radius: 10rpx;
+				margin-right: 5%;
+				image {
+					width: 100%;
+					height: 100%;
+					border-radius: 10rpx;
+				}
+			}
+			
+			.bookList-box-content-item-intro-other {
+				text-indent: 50rpx;
+				width: 75%;
+				height: 165rpx;
+				overflow: hidden; /* 隐藏超出部分的文本 */
+				text-overflow: ellipsis; /* 使用省略号表示文本被截断 */
+			}
+			
+			.bookList-box-content-item-title-other {
+				color: #1A1A1A;
+				font-size: 30rpx;
+				width: 100%;
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				margin-top: 10rpx;
+			}
+		
+			.bookList-box-content-item-tips-other {
+				margin-top: 6rpx;
+		
+				text:nth-of-type(1) {
+					color: #FF6730;
+					font-size: 26rpx;
+				}
+		
 				text:nth-of-type(2) {
 					color: #999999;
 					font-size: 22rpx;
