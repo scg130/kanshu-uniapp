@@ -1,1 +1,1 @@
-window.HOST = "http://192.168.0.100:2222"
+window.HOST = "http://127.0.0.1:2222"
