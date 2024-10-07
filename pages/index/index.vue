@@ -625,7 +625,7 @@
 			
 			.bookList-box-content-item-img-other {
 				width: 20%;
-				height: 165rpx;
+				height: 160rpx;
 				border-radius: 10rpx;
 				margin-right: 5%;
 				image {
@@ -638,7 +638,7 @@
 			.bookList-box-content-item-intro-other {
 				text-indent: 50rpx;
 				width: 75%;
-				height: 165rpx;
+				height: 160rpx;
 				overflow: hidden; /* 隐藏超出部分的文本 */
 				text-overflow: ellipsis; /* 使用省略号表示文本被截断 */
 			}
