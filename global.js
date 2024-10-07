@@ -1,4 +1,4 @@
-const IP = process.env.UNIAPP_IP || "192.168.0.100";
-console.log(IP);
+const IP = "192.168.0.100";
+
 
 window.HOST = "http://"+IP+":2222"
