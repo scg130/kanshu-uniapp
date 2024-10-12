@@ -237,7 +237,7 @@
 				invitationCode: '',
 				isHave:0,
 				chapter:{},
-				context:''
+				context:'test content'
 			};
 		},
 		onShareAppMessage(res) {
