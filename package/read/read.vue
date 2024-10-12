@@ -38,8 +38,10 @@
 						下一章
 					</view>
 				</view>
+				<ball :isDock="true" :existTabBar="true" :context="context"></ball>
 			</view>
 		</view>
+		
 		<!-- 顶部弹出 -->
 		<u-popup :safeAreaInsetTop="true" :overlay="false" :bgColor="bgColor" :show="show" @close="close" mode="top">
 			<view class="tops flex align-center justify-center">
@@ -191,10 +193,14 @@
 </template>
 
 <script>
+	import ball from '../../components/ball.vue';
 	// #ifdef MP-WEIXIN
 	var videoAd = null;
 	// #endif
 	export default {
+		components: {
+			ball
+		},
 		data() {
 			return {
 				scrollIntoView: 'mybook1',
@@ -231,7 +237,7 @@
 				invitationCode: '',
 				isHave:0,
 				chapter:{},
-
+				context:''
 			};
 		},
 		onShareAppMessage(res) {
@@ -545,7 +551,6 @@
 				let that = this
 				uni.getSystemInfo({
 					success(res) {
-						console.log(res, '11111111')
 						that.screenWidth = res.windowWidth
 						that.screenHeight = res.windowHeight
 					}
