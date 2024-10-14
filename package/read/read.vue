@@ -38,7 +38,7 @@
 						下一章
 					</view>
 				</view>
-				<ball :isDock="true" :existTabBar="true" :context="context"></ball>
+				<ball :isDock="true" :existTabBar="true" ref="ball" :context="content"></ball>
 			</view>
 		</view>
 		
@@ -236,8 +236,7 @@
 				isGuanggao: '否',
 				invitationCode: '',
 				isHave:0,
-				chapter:{},
-				context:'test content'
+				chapter:{}
 			};
 		},
 		onShareAppMessage(res) {
@@ -521,8 +520,6 @@
 						this.getBookInfo()
 					}
 				} else { //下一章
-					console.log(this.page, '111111')
-					console.log(this.pages, '111111')
 					if (this.page == this.pages) {
 						uni.showToast({
 							title: '已经是最新章节了',
@@ -602,6 +599,7 @@
 						this.content = res.data.chapter.content
 						this.title = res.data.chapter.title
 						this.isHave = res.data.is_have
+						this.$refs.ball.speechInit(this.content);
 						//切换章节后让页面滑动到最底部
 						uni.pageScrollTo({
 							duration: 0,

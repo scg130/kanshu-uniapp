@@ -2,10 +2,10 @@
     <view>
         <view id="_drag_button" class="drag" :style="'left: ' + left + 'px; top:' + top + 'px;'"
             @touchstart="touchstart" @touchmove.stop.prevent="touchmove" @touchend="touchend"
-            @click.stop.prevent="click" :class="{transition: isDock && !isMove }">
-			<image src='/static/image/audio/left.png' mode="scaleToFill"></image>
+            @click.stop.prevent="click('')" :class="{transition: isDock && !isMove }">
+			<!-- <image src='/static/image/audio/left.png' mode="scaleToFill"></image> -->
             <image :src='middle' mode="scaleToFill"></image>
-			<image src='/static/image/audio/right.png' mode="scaleToFill"></image>
+			<!-- <image src='/static/image/audio/right.png' mode="scaleToFill"></image> -->
         </view>
     </view>
 </template>
@@ -43,7 +43,8 @@
                 isMove: true,
                 edge: 10,
                 value: 0,
-				middle: '/static/image/audio/stop.png'
+				middle: '/static/image/audio/stop.png',
+				speech: null
                 // imgOne: '../static/dd%20(2).png',
             }
         },
@@ -70,18 +71,30 @@
             }).exec();
         },
         methods: {
-            click() {
+			speechInit(text){
+				if (text.length > 0) {
+					speechSynthesis.cancel(this.speech);
+					this.speech = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
+					this.click("start");
+				}
+			},
+            click(state) {
+				if (state != "") {
+					this.audioState = state;
+				}
 				if (this.audioState == 'stop') {
+					speechSynthesis.speak(this.speech);
+					speechSynthesis.resume();
 					this.audioState = 'start'
 					this.middle = '/static/image/audio/start.png'
 				} else {
+					speechSynthesis.pause();
 					this.audioState = 'stop'
 					this.middle = '/static/image/audio/stop.png'
 				}
 				
 				console.log(this.audioState);
 				
-				console.log(this.context);
 				// this.$emit('newAdd');
 			},
             touchstart(e) {
