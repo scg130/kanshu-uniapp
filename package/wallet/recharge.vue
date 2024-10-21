@@ -73,11 +73,12 @@ export default {
 	  payAway:'alipay',
 	  number:4,
 	  money:6,
-	  payList:[{
-	  		imgurl: '/static/image/pay/weixin.png',
-	  		name: '微信支付',
-	  		payAway: 'wxpay',
-	  	},
+	  payList:[
+		// {
+	 //  		imgurl: '/static/image/pay/weixin.png',
+	 //  		name: '微信支付',
+	 //  		payAway: 'wxpay',
+	 //  	},
 	  	{
 	  		imgurl: '/static/image/pay/zhifubao.png',
 	  		name: '支付宝支付',
