@@ -55,7 +55,7 @@
             this.windowWidth = sys.windowWidth;
             this.windowHeight = sys.windowHeight;
 			
-			this.selected = uni.setStorageSync('language', this.selected) ? uni.setStorageSync('language', this.selected) : "chinese_simplified" ;
+			this.selected = uni.getStorageSync('language', this.selected) ? uni.getStorageSync('language', this.selected) : "chinese_simplified" ;
 			
             // #ifdef APP-PLUS
             this.existTabBar && (this.windowHeight -= 50);
@@ -75,6 +75,7 @@
         },
         methods: {
 			selectChange(){
+				console.log(this.selected)
 				uni.setStorageSync('language', this.selected);
 				this.$translate.changeLanguage(this.selected);
 				this.$translate.execute(); //进行翻译
