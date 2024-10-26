@@ -599,7 +599,7 @@
 				}
 				this.$Request.get('/novel/chapter', data).then(res => {
 					if (res.code == 0 && res.data.is_have == 1) {
-						this.content = res.data.chapter.content
+						this.content = res.data.chapter.content.replace(/最新网址：www.xbiqugu.net/, "")
 						this.title = res.data.chapter.title
 						this.isHave = res.data.is_have
 						this.$refs.ball.speechInit(this.content);
