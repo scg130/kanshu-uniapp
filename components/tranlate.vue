@@ -42,7 +42,7 @@
                 isMove: true,
                 edge: 10,
                 value: 0,
-				selected: 'chinese_simplified', // 用于绑定select的当前选中值
+				selected: '', // 用于绑定select的当前选中值
 				options: [ // 下拉选项数据
 					{ text: 'ZH', value: 'chinese_simplified' },
 					{ text: 'EN', value: 'english' }
