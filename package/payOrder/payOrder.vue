@@ -195,10 +195,17 @@
 				
 				this.$Request.getT(url).then(res=>{
 					if (res.code == 0) {
-						uni.showToast({
-							title: '购买成功',
-							icon: 'none',
-							duration: 1000
+						// uni.showToast({
+						// 	title: '购买成功',
+						// 	icon: 'none',
+						// 	duration: 1000
+						// })
+						uni.showModal({
+							title: '提示',
+							content: "购买成功",
+							complete(ret) {
+								uni.navigateBack()
+							}
 						})
 					} else if (res.code == -3) {
 						uni.showModal({
