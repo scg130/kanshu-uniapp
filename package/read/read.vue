@@ -615,7 +615,9 @@
 							this.muShow = false
 						}
 					} else {
+						this.isHave = 0
 						this.chapter = res.data
+						this.content = ""
 					}
 				})
 			},
