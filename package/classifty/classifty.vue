@@ -60,15 +60,18 @@
 					</scroll-view>
 				</view>
 			</view>
+			<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 		</view>
 	</view>
 </template>
 
 <script>
 	import empty from '../../components/empty/empty.vue'
+	import tranlate from '../../components/tranlate.vue'
 	export default {
 		components: {
-			empty
+			empty,
+			tranlate
 		},
 		data() {
 			return {

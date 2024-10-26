@@ -60,11 +60,16 @@
         <text>小助手</text>
       </view>
     </view>
+	<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
   </view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue';
 export default {
+	components: {
+		tranlate
+	},
   data() {
     return {
 	  moneyTotal:0.00,

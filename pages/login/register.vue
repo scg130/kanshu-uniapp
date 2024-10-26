@@ -54,12 +54,17 @@
 				和
 				<navigator url="/package/setting/xieyi" open-type="navigate">《用户协议》</navigator>
 			</view>
+			<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 		</view>
 	</view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue';
 	export default {
+		components: {
+			tranlate
+		},
 		data() {
 			return {
 				showAgrees: [],

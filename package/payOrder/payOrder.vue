@@ -78,11 +78,16 @@
 				支付 ¥{{type==1?parsePrice(zongPrice):parsePrice(price)}}
 			</view>
 		</view>
+		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 	</view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue';
 	export default {
+		components: {
+			tranlate
+		},
 		data() {
 			return {
 				courseId: '', //整部视频id

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "i18n-jsautotranslate": "^2.6.0",
+    "uview-ui": "^2.0.37"
+  }
+}

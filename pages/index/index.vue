@@ -222,7 +222,7 @@
 		</view>
 		
 		<empty v-if="popularList.length===0 && newList.length===0 && finishList.length===0 && otherList.length == 0" txt="暂无书籍" />
-
+		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 
 
 	</view>
@@ -230,9 +230,11 @@
 
 <script>
 	import empty from '../../components/empty/empty.vue'
+	import tranlate from '../../components/tranlate.vue';
 	export default {
 		components: {
-			empty
+			empty,
+			tranlate
 		},
 		data() {
 			return {

@@ -2,17 +2,17 @@
     <view>
         <view id="_drag_button" class="drag" :style="'left: ' + left + 'px; top:' + top + 'px;'"
             @touchstart="touchstart" @touchmove.stop.prevent="touchmove" @touchend="touchend"
-            @click.stop.prevent="click('')" :class="{transition: isDock && !isMove }">
-			<!-- <image src='/static/image/audio/left.png' mode="scaleToFill"></image> -->
-            <image :src='middle' mode="scaleToFill"></image>
-			<!-- <image src='/static/image/audio/right.png' mode="scaleToFill"></image> -->
+            :class="{transition: isDock && !isMove }">
+			<select v-model="selected" @change="selectChange" >
+			      <option v-for="(item, index) in options" :key="index" :value="item.value">{{ item.text }}</option>
+			</select>
         </view>
     </view>
 </template>
  
 <script>
     export default {
-        name: 'ball',
+        name: 'tranlate',
         props: {
             isDock: {
                 type: Boolean,
@@ -30,7 +30,6 @@
  
         data() {
             return {
-				audioState:"stop",
                 config: getApp().globalData.config, //全局获取
                 top: 0,
                 left: 0,
@@ -43,9 +42,11 @@
                 isMove: true,
                 edge: 10,
                 value: 0,
-				middle: '/static/image/audio/stop.png',
-				speech: null
-                // imgOne: '../static/dd%20(2).png',
+				selected: 'chinese_simplified', // 用于绑定select的当前选中值
+				options: [ // 下拉选项数据
+					{ text: 'ZH', value: 'chinese_simplified' },
+					{ text: 'EN', value: 'english' }
+				]
             }
         },
         mounted() {
@@ -53,7 +54,9 @@
  
             this.windowWidth = sys.windowWidth;
             this.windowHeight = sys.windowHeight;
- 
+			
+			this.selected = uni.setStorageSync('language', this.selected) ? uni.setStorageSync('language', this.selected) : "chinese_simplified" ;
+			
             // #ifdef APP-PLUS
             this.existTabBar && (this.windowHeight -= 50);
             // #endif
@@ -67,36 +70,15 @@
                 this.offsetWidth = data.width / 2;
                 this.offsetHeight = data.height / 2;
                 this.left = this.windowWidth - this.width - this.edge;
-                this.top = this.windowHeight - this.height - this.edge - 300;
+                this.top = this.windowHeight - this.height - this.edge - 530;
             }).exec();
         },
         methods: {
-			speechInit(text){
-				if (text.length > 0) {
-					speechSynthesis.cancel(this.speech);
-					this.speech = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
-					this.click("start");
-				}
-			},
-            click(state) {
-				if (state != "") {
-					this.audioState = state;
-				}
-				if (this.audioState == 'stop') {
-					speechSynthesis.speak(this.speech);
-					speechSynthesis.resume();
-					this.audioState = 'start'
-					this.middle = '/static/image/audio/start.png'
-				} else {
-					speechSynthesis.pause();
-					this.audioState = 'stop'
-					this.middle = '/static/image/audio/stop.png'
-				}
-				
-				console.log(this.audioState);
-				
-				// this.$emit('newAdd');
-			},
+			selectChange(){
+				uni.setStorageSync('language', this.selected);
+				this.$translate.changeLanguage(this.selected);
+				this.$translate.execute(); //进行翻译
+			},	
             touchstart(e) {
                 // this.$emit('btnTouchstart');
             },

@@ -65,13 +65,19 @@
 			<navigator url="/package/setting/mimi" open-type="navigate">《隐私政策》</navigator>
 			和
 			<navigator url="/package/setting/xieyi" open-type="navigate">《用户服务协议》</navigator>
+			
 		</view>
 		<!-- #endif -->
+		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 	</view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue';
 	export default {
+		components: {
+			tranlate
+		},
 		data() {
 			return {
 				mobile: '',

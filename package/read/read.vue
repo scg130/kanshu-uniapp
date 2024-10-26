@@ -39,6 +39,7 @@
 					</view>
 				</view>
 				<ball :isDock="true" :existTabBar="true" ref="ball" :context="content"></ball>
+				<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 			</view>
 		</view>
 		
@@ -194,12 +195,14 @@
 
 <script>
 	import ball from '../../components/ball.vue';
+	import tranlate from '../../components/tranlate.vue';
 	// #ifdef MP-WEIXIN
 	var videoAd = null;
 	// #endif
 	export default {
 		components: {
-			ball
+			ball,
+			tranlate
 		},
 		data() {
 			return {

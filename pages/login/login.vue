@@ -47,12 +47,17 @@
 				<text @click.stop="goTo('/package/setting/mimi')">《隐私政策》</text>和<text
 					@click.stop="goTo('/package/setting/xieyi')">《用户协议》</text>
 			</view>
+			<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 		</view>
 	</view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue';
 	export default {
+		components: {
+			tranlate
+		},
 		data() {
 			return {
 				mobile: '',

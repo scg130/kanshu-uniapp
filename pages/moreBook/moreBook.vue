@@ -37,6 +37,7 @@
 					</text>
 				</view>
 			</view>
+			<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 		</view>
 		<empty v-if="list.length == 0" />
 		<u-loadmore v-if="list.length > 0" :status="status" />
@@ -45,9 +46,11 @@
 
 <script>
 	import empty from '../../components/empty/empty.vue'
+	import tranlate from '../../components/tranlate.vue';
 	export default {
 		components: {
-			empty
+			empty,
+			tranlate
 		},
 		data() {
 			return {

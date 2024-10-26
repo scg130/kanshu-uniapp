@@ -15,15 +15,18 @@
 		</view>
 
 		<button class="confirm-btn" @click="toLogin" :disabled="logining">立即绑定</button>
+		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 	</view>
 	</view>
 </template>
 
 <script>
 	import listCell from '@/components/com-input';
+	import tranlate from '../../components/tranlate.vue';
 	export default {
 		components: {
-			listCell
+			listCell,
+			tranlate
 		},
 		data() {
 			return {

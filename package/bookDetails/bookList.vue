@@ -9,11 +9,16 @@
 				</text>
 			</view>
 		</view>
+		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 	</view>
 </template>
 
 <script>
+	import tranlate from '../../components/tranlate.vue'
 	export default {
+		components: {
+			tranlate
+		},
 		data() {
 			return {
 				page: 1,
