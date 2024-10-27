@@ -23,6 +23,7 @@ import translate from 'i18n-jsautotranslate'
 translate.setUseVersion2() //设置使用v2.x 版本
 translate.selectLanguageTag.show = false //是否显示切换栏
 translate.listener.start() //监控页面动态渲染的文本进行自动翻译
+
 Vue.prototype.$translate = translate
 
 Vue.config.productionTip = false

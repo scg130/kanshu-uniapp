@@ -27,7 +27,17 @@
 				default: ''
 			}
         },
- 
+		created() {
+			let that = this;
+			this.$root.$on("hook:onReady",(()=>{
+				setTimeout(function(){
+					console.log(that.selected)
+					uni.setStorageSync('language', that.selected);
+					that.$translate.changeLanguage(that.selected);
+					that.$translate.execute();
+				},100)
+			}));
+		},
         data() {
             return {
                 config: getApp().globalData.config, //全局获取
@@ -75,11 +85,10 @@
         },
         methods: {
 			selectChange(){
-				console.log(this.selected)
 				uni.setStorageSync('language', this.selected);
 				this.$translate.changeLanguage(this.selected);
-				this.$translate.execute(); //进行翻译
-			},	
+				// this.$translate.execute(); //进行翻译
+			},
             touchstart(e) {
                 // this.$emit('btnTouchstart');
             },

@@ -299,7 +299,7 @@
 					if (res.code == 0) {
 						this.bgImg = res.data.imageUrl
 						this.tuiguang = res.data.describes
-						console.log(this.bgImg)
+						// console.log(this.bgImg)
 					} else {
 						uni.showToast({
 							title: res.msg,
