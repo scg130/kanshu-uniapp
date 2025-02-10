@@ -1,5 +1,8 @@
 <template>
 	<view style="padding-bottom: 120rpx;">
+		<u-navbar  :placeholder="true" 
+			 :title="info.name" :autoBack="true">
+		</u-navbar>
 		<view class="infoTop flex justify-center">
 			<view class="infoTop-box flex align-center">
 				<view class="infoTop-box-img">

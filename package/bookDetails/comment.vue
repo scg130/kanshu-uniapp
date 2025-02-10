@@ -1,5 +1,7 @@
 <template>
 	<view style="padding-bottom: 120rpx;">
+		<u-navbar style="margin-bottom: 38px;" :autoBack="true">
+		</u-navbar>
 		<view class="pl flex align-center justify-center">
 			<view class="pl-box">
 				<view class="pl-box-item" v-for="(item,index) in list" :key="index">

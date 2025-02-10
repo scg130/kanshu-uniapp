@@ -1,5 +1,7 @@
 <template>
   <view class="buy">
+	  <u-navbar style="margin-bottom: 38px;" :autoBack="true">
+	  </u-navbar>
     <view class="title">
       <image src="/static/image/pay/buy.png"></image>
       <text class="text">余额：</text>

@@ -1,6 +1,7 @@
 <template>
 	<view style="padding-bottom: 40rpx;">
 		<!-- 签到 -->
+	
 		<view class="qd flex align-center justify-center">
 			<view class="qd-box flex align-center justify-center">
 				<view class="qd-boxs">

@@ -177,7 +177,7 @@
 					</view>
 				</view>
 				<scroll-view @scrolltolower="scrolltolower" scroll-y="true" :scroll-into-view="scrollIntoView"
-					class="leftList">
+					class="leftList" @touchmove.stop.prevent>
 					<view :id="'mybook'+(item.num)" class="leftList-item flex align-center flex-wrap"
 						@click="selectZj(item.num)" v-for="(item,index) in mulIst" :key="index"
 						:style="bgColor==='#333333'?'color:#999999':''">
@@ -230,7 +230,7 @@
 				},
 				mulIst: [],
 				pagemu: 1,
-				limitmu: 10,
+				limitmu: 20,
 				pagesmu: 1,
 				info: {},
 				myInfoBook: {}, //本章书信息
