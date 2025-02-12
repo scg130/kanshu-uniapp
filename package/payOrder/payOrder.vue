@@ -1,5 +1,8 @@
 <template>
 	<view style="padding: 20rpx 0;">
+		<u-navbar  :placeholder="true" style="margin-bottom: 38px;"
+			 title="购买" :autoBack="true" rightText="首页" @rightClick="goHome()" >
+		</u-navbar>
 		<!-- 视频简介 -->
 		<view class="info flex align-center justify-center">
 			<view class="info-box flex align-center">
@@ -189,6 +192,11 @@
 			 */
 			parsePrice(price) {
 				return price.toFixed(2)
+			},
+			goHome(){
+				uni.reLaunch({
+					url: '/'
+				})
 			},
 			buyChapter(){
 				let url = "/novel/buyChapter?novel_id="+this.courseId +"&num="+this.chapterNum +"&chapter_id="+this.courseDetailsId;

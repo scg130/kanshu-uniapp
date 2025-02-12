@@ -1,6 +1,7 @@
 <template>
   <view class="buy">
-	  <u-navbar style="margin-bottom: 38px;" :autoBack="true">
+	  <u-navbar  :placeholder="true" style="margin-bottom: 38px;"
+	  	 title="充值" :autoBack="true" rightText="首页" @rightClick="goHome()" >
 	  </u-navbar>
     <view class="title">
       <image src="/static/image/pay/buy.png"></image>
@@ -139,6 +140,11 @@ export default {
 	  })
   },
   methods: {
+	  goHome(){
+	  	uni.reLaunch({
+	  		url: '/'
+	  	})
+	  },
     pick(index,number,money) {
 		this.num = index;
 		this.number = number;

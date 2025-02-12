@@ -1,7 +1,7 @@
 <template>
 	<view style="padding-bottom: 120rpx;">
-		<u-navbar  :placeholder="true" 
-			 :title="info.name" :autoBack="true">
+		<u-navbar  :placeholder="true"
+			 :title="info.name" :autoBack="true" rightText="首页" @rightClick="goHome()" >
 		</u-navbar>
 		<view class="infoTop flex justify-center">
 			<view class="infoTop-box flex align-center">
@@ -254,6 +254,11 @@
 			},
 			inputBindBlur() {
 				this.bottom = '0px'
+			},
+			goHome(){
+				uni.reLaunch({
+					url: '/'
+				})
 			},
 			//去阅读
 			gotoRead() {

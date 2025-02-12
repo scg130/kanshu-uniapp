@@ -1,6 +1,7 @@
 <template>
 	<view style="padding-bottom: 120rpx;">
-		<u-navbar style="margin-bottom: 38px;" :autoBack="true">
+		<u-navbar  :placeholder="true" style="margin-bottom: 38px;"
+			 title="评论" :autoBack="true" rightText="首页" @rightClick="goHome()" >
 		</u-navbar>
 		<view class="pl flex align-center justify-center">
 			<view class="pl-box">
@@ -100,6 +101,11 @@
 		methods: {
 			inputBindBlur() {
 				this.bottom = '0px'
+			},
+			goHome(){
+				uni.reLaunch({
+					url: '/'
+				})
 			},
 			//点赞
 			dianzan(courseCommentId) {
