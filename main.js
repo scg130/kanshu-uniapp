@@ -11,7 +11,7 @@ Vue.use(uView);
 import HttpRequest from './common/httpRequest'
 import HttpCache from './common/caches'
 import queue from './common/queue'
-import './global.js'
+// import './global.js'
 Vue.config.productionTip = false
 Vue.prototype.$Request = HttpRequest;
 Vue.prototype.$queue = queue;

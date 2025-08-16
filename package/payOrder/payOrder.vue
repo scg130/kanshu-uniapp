@@ -480,8 +480,8 @@
 </script>
 
 <style lang="scss">
-	/deep/.u-radio {
-		display: block !important;
+	::v-deep .u-radio {
+	    display: block !important;
 	}
 
 	.info {
