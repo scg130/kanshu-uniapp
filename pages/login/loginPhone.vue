@@ -1,32 +1,9 @@
 <template>
 	<view class="container">
-		<!-- 小程序状态下登录 -->
-		<!-- #ifdef MP-WEIXIN -->
-		<view class="mp_wxBox">
-			<view>
-				<view class="headers">
-					<image src="../../static/images/logo.png" style="border-radius: 50%;"></image>
-				</view>
-				<view class="content">
-					<view>申请获取以下权限</view>
-					<text>获得你的公开信息(昵称，头像、地区等)</text>
-				</view>
-				<button v-show="weixinPhone"
-					style="background: linear-gradient(0deg, #FE956D 0%, #FE7085 100%);color: #FFFFFF;" class="bottom"
-					open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
-					授权手机号
-				</button>
-				<button v-show="!weixinPhone"
-					style="background: linear-gradient(0deg, #FE956D 0%, #FE7085 100%);color: #FFFFFF;" class='bottom'
-					bindtap="getUserProfile" @tap="wxGetUserInfo">
-					授权登录
-				</button>
-			</view>
-
+		<view class="logo-container">
+			<image src="../../static/avatar.jpg" class="logo"></image>
 		</view>
-		<!-- #endif -->
 
-		<!-- #ifndef MP-WEIXIN -->
 		<view class="wrapper">
 			<view class="input-content">
 				<view class="cu-form-group"
@@ -53,21 +30,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- #endif -->
-
-		<!-- #ifdef MP -->
-		<view class="footer">
-			<u-checkbox-group activeColor="#FE956D">
-				<u-checkbox v-model="checked" label-size='24upx' shape="circle" @change="radioChange"></u-checkbox>
-			</u-checkbox-group>
-			<view>同意</view>
-			<!-- 协议地址 -->
-			<navigator url="/package/setting/mimi" open-type="navigate">《隐私政策》</navigator>
-			和
-			<navigator url="/package/setting/xieyi" open-type="navigate">《用户服务协议》</navigator>
-			
-		</view>
-		<!-- #endif -->
+		
 		<tranlate :isDock="true" :existTabBar="true" ref="tranlate" ></tranlate>
 	</view>
 </template>
@@ -90,7 +53,7 @@
 				phone: '',
 				sendTime: '获取验证码',
 				count: 60,
-				checked: false
+				checked: true
 			};
 		},
 
@@ -113,107 +76,6 @@
 			},
 			radioChange(e) {
 				console.log(e);
-			},
-			//第一授权获取用户信息===》按钮触发
-			wxGetUserInfo(e) {
-				let that = this;
-				if (this.checked) {
-
-
-					wx.getUserProfile({
-						desc: '业务需要',
-						success: infoRes => {
-							console.log("infoRes.encryptedData__________:" + JSON.stringify(infoRes.userInfo))
-							let nickName = infoRes.userInfo.nickName; //昵称
-							let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-							let sex = infoRes.userInfo.gender; //头像
-							try {
-								that.login(nickName, avatarUrl, sex);
-							} catch (e) {}
-						}
-					})
-				} else {
-					uni.showToast({
-						title: '请同意隐私政策和用户服务协议',
-						icon: 'none'
-					})
-				}
-			},
-			//登录
-			login(nickName, avatarUrl, sex) {
-				let that = this;
-				// 1.wx获取登录用户code
-				uni.login({
-					provider: 'weixin',
-					success: function(loginRes) {
-						let data = {
-							code: loginRes.code
-						}
-						that.$Request.get('/app/Login/wxLogin', data).then(res => {
-							if (res.code == 0 && res.data) {
-								uni.setStorageSync('openId', res.data.open_id)
-								uni.setStorageSync('unionId', res.data.unionId)
-								that.sessionkey = res.data.session_key;
-
-								let invitationCode = '';
-								if (uni.getStorageSync('invitation')) {
-									invitationCode = uni.getStorageSync('invitation')
-								}
-								let sendData = {
-									openId: uni.getStorageSync('openId'),
-									unionId: uni.getStorageSync('unionId'),
-									userName: nickName,
-									avatar: avatarUrl,
-									sex: sex, //性别
-									inviterCode: invitationCode //别人登录进来携带你的邀请码
-								};
-								that.sendDataList = sendData;
-								that.flag = res.data.flag;
-								if (that.flag == '1') {
-									that.weixinPhone = true;
-								} else {
-									that.getWeixinInfo(sendData);
-								}
-							} else {
-								uni.showToast({
-									icon: 'none',
-									title: res.msg,
-									duration: 2000
-								});
-							}
-						})
-
-					}
-				});
-			},
-			//小程序微信登录后获取手机号
-			getPhoneNumber: function(e) {
-				if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-					console.log('用户拒绝提供手机号');
-				} else {
-					console.log('用户同意提供手机号');
-					this.setPhoneByInsert(e.detail.encryptedData, e.detail.iv);
-				}
-			},
-			//小程序微信登录后获取手机号
-			setPhoneByInsert(decryptData, iv) {
-				let data = {
-					decryptData: decryptData,
-					key: this.sessionkey,
-					iv: iv
-				};
-
-				this.$Request.postJson('/app/Login/selectPhone', data).then(res => {
-					if (res.code == 0) {
-						this.phone = res.data.phoneNumber;
-						this.getWeixinInfo(this.sendDataList);
-					} else {
-						uni.showToast({
-							title: res.msg,
-							duration: 2000
-						});
-					}
-				})
 			},
 			countDown() {
 				const {
@@ -344,52 +206,6 @@
 					});
 				}
 			},
-			//获取个人信息
-			getWeixinInfo(sendData) {
-				let that = this;
-				uni.showLoading({
-					title: '登录中...'
-				});
-				let postData = {
-					openId: sendData.openId, //小程序openId
-					unionId: sendData.unionId, //unionId
-					userName: sendData.userName, //微信名称
-					avatar: sendData.avatar, //头像
-					sex: sendData.sex, //性别
-					phone: that.phone,
-					inviterCode: sendData.inviterCode
-				};
-				that.$Request.postJson('/app/Login/insertWxUser', postData).then(res => {
-					uni.hideLoading();
-					if (res.code == 0) {
-						uni.setStorageSync('token', res.token)
-						uni.setStorageSync('userName', res.user.userName)
-						uni.setStorageSync('avatar', res.user.avatar)
-						uni.setStorageSync('phone', res.user.phone)
-						uni.setStorageSync('invitationCode', res.user.invitationCode)
-						uni.setStorageSync('sex', res.user.sex)
-						uni.setStorageSync('userId', res.user.userId)
-						uni.setStorageSync('openId', res.user.openId)
-						let data = {
-							userId: uni.getStorageSync('userId')
-						}
-						that.$u.api.userVip(data).then(res => {
-							if (res.code == 0 && res.data && res.data.isVip == 2) {
-								uni.setStorageSync('isVIP', true)
-							} else {
-								uni.setStorageSync('isVIP', false)
-							}
-						})
-						uni.navigateBack();
-					} else {
-						uni.showModal({
-							showCancel: false,
-							title: '登录失败',
-							content: res.msg,
-						});
-					}
-				})
-			},
 
 		}
 	};
@@ -405,13 +221,26 @@
 		height: 400upx;
 	}
 
+	.logo-container {
+		display: flex;
+		justify-content: center;
+		margin: 60rpx 0;
+	}
+	
+	.logo {
+		width: 200rpx;
+		height: 200rpx;
+		border-radius: 50%;
+	}
+	
 	.footer {
-		padding-left: 150rpx;
 		margin-top: 32upx;
 		font-size: 24upx;
 		color: #666666;
 		text-align: center;
 		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	page {
