@@ -20,8 +20,8 @@ Vue.prototype.$queue = queue;
 Vue.prototype.$Sysconf = HttpRequest.config;
 Vue.prototype.$SysCache = HttpCache;
 
-import i18n from './common/wx-i18n';
-Vue.prototype.$i18n = i18n
+// import i18n from './common/wx-i18n';
+// Vue.prototype.$i18n = i18n
 
 Vue.config.productionTip = false
 App.mpType = 'app'
