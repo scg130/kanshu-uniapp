@@ -4,6 +4,6 @@ const ROOTPATH1 = "https://xiaoshuo.xianmxkj.com"; //后台服务域名
 // import "../global.js"
 
 module.exports = {
-	APIHOST: "https://www.556wan.cn/api",
-	APIHOST1: "https://www.556wan.cn/api",
+	APIHOST: "https://556wan.cn/api",
+	APIHOST1: "https://556wan.cn/api",
 };
